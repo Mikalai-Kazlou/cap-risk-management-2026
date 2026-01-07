@@ -1,5 +1,7 @@
 namespace RiskManagement;
 
+using {BusinessPartnerA2X} from '../srv/external/BusinessPartnerA2X.cds';
+
 entity Risks {
   key ID          : UUID;
       title       : String(100);
@@ -8,6 +10,7 @@ entity Risks {
       impact      : Integer;
       criticality : Integer;
       miti        : Association to one Mitigations;
+      supplier    : Association to one BusinessPartnerA2X.A_BusinessPartner;
 }
 
 entity Mitigations {
