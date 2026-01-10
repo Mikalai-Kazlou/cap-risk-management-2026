@@ -5,6 +5,18 @@ using { RiskManagement as my } from '../db/schema.cds';
 @path : '/service/RiskManagementService'
 service RiskManagementService
 {
+    annotate Mitigations with @restrict :
+    [
+        { grant : [ '*' ], to : [ 'RiskManager' ] },
+        { grant : [ 'READ' ], to : [ 'RiskViewer' ] }
+    ];
+
+    annotate Risks with @restrict :
+    [
+        { grant : [ '*' ], to : [ 'RiskManager' ] },
+        { grant : [ 'READ' ], to : [ 'RiskViewer' ] }
+    ];
+
     @odata.draft.enabled
     entity Risks as
         projection on my.Risks;
@@ -26,5 +38,7 @@ service RiskManagementService
 
 annotate RiskManagementService with @requires :
 [
-    'authenticated-user'
+    'authenticated-user',
+    'RiskViewer',
+    'RiskManager'
 ];
